@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\Api\v1\EmployeeController;
+use App\Http\Controllers\Api\v1\NotificationController;
 use App\Http\Controllers\Api\v1\TaskController;
 use App\Http\Controllers\Api\v1\UserController;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -63,5 +65,18 @@ Route::prefix('/v1')->group(function(){
     Route::patch('/unagree/task/{id}' , [TaskController::class , 'changeToUnagreeTask']);
 
     Route::patch('/done/task/{id}' , [TaskController::class , 'changeToDoneTask']);
+
+   //notifiction token suction 
+   
+   Route::post('/new/user/token', [NotificationController::class , 'tokenSigninUser']);
+
+   Route::post('/new/employee/token', [NotificationController::class , 'tokenSigninEmployee']);
+
+   Route::patch('/user/update/token/{user_id}', [NotificationController::class , 'updateUserToken']);
+
+   Route::patch('/employee/update/token/{employee_id}', [NotificationController::class , 'updateEmployeeToken']);
+
+   Route::post('/send/task/notification', [NotificationController::class , 'sendNewTaskNotification']);
+
 
 });
