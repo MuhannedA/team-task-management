@@ -14,7 +14,7 @@ class UserToken extends Model
         'user_id',  
     ];
 
-    public function usertokens(){
+    public function tokenuser(){
         return $this->belongsTo(User::class);
     }
 }
