@@ -33,6 +33,8 @@ class NotificationController extends Controller
              'employee_token' => $request->employee_token,
              'employee_id' => $request->employee_id
          ]);
+
+         return response()->json($token);
      }
 
 
@@ -58,6 +60,28 @@ class NotificationController extends Controller
 
         $token->employee_token = $request->employee_token;
         $token->save();
+
+        return response()->json($token);
+       
+    }
+
+
+    public function getEmpolyeeToken( $id)
+    {
+
+        $token = EmployeeToken::where('employee_id' , $id)->get();
+
+
+        return response()->json($token);
+       
+    }
+
+
+    public function getUserToken( $id)
+    {
+
+        $token = UserToken::where('user_id' , $id)->get();
+
 
         return response()->json($token);
        
@@ -91,14 +115,13 @@ class NotificationController extends Controller
 
             $ch = curl_init();
 
-            curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
-            curl_setopt($ch, CURLOPT_PORT, true);
+            curl_setopt($ch, CURLOPT_URL, "https://fcm.googleapis.com/fcm/send");
+            curl_setopt($ch, CURLOPT_PORT, 1);
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
             $response = curl_exec($ch);
-
-            return response()->json($response);
-    }
+                return response()->json($response);
+            }
 }

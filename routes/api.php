@@ -78,5 +78,9 @@ Route::prefix('/v1')->group(function(){
 
    Route::post('/send/task/notification', [NotificationController::class , 'sendNewTaskNotification']);
 
+   Route::get('/get/employee/token/{employee_id}' , [NotificationController::class , 'getEmpolyeeToken']);
+
+   Route::get('/get/user/token/{user_id}' , [NotificationController::class , 'getUserToken']);
+
 
 });
